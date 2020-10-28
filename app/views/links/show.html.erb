@@ -10,6 +10,30 @@
   <%= @link.url %>
 </p>
 
+<br>
+
+<h2>Comments</h2>
+<% @link.comments.each do |comment| %>
+  <p>
+    <strong><%= @link.user.email %></strong>
+      <small> Comments: </small>
+      <%= comment.body %>
+  </p>
+ 
+<% end %>
+
+<br>
+<%= form_with(model: [ @link, @link.comments.build ], local: true) do |form| %>
+  <p>
+    <br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit "Add Comment" %>
+  </p>
+<% end %>
+
+
 <% if @link.user == current_user %>
       <%= link_to 'Edit', edit_link_path(@link) %>
       <%= link_to 'Delete', @link, method: :delete, data: { confirm: 'Are you sure?' } %>
