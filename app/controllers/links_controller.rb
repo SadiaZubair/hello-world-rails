@@ -92,4 +92,10 @@ class LinksController < ApplicationController
     def link_params
       params.require(:link).permit(:title, :url)
     end
+
+    def login_user
+      @user1 = User.first
+      #csrf_token = session[:_csrf_token]
+      post '/users/sign_in', params:{"authenticity_token"=>[:csrf_token], "user"=>{"email"=>@user1.password, "password"=>@user1.password}}
+    end
 end

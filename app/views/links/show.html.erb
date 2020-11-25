@@ -16,23 +16,14 @@
 <% @link.comments.each do |comment| %>
   <p>
     <strong><%= @link.user.email %></strong>
-      <small> Comments: </small>
+      <small> Commented: </small>
       <%= comment.body %>
   </p>
  
 <% end %>
 
 <br>
-<%= form_with(model: [ @link, @link.comments.build ], local: true) do |form| %>
-  <p>
-    <br>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit "Add Comment" %>
-  </p>
-<% end %>
-
+<%= render 'comments/form' %>
 
 <% if @link.user == current_user %>
       <%= link_to 'Edit', edit_link_path(@link) %>
